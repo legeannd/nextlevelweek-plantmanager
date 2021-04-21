@@ -15,7 +15,7 @@ import wateringImg from '../assets/watering.png';
 import colors from '../styles/colors';
 import fonts from '../styles/fonts';
 
-export function Welcome() {
+export function Welcome () {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.wrapper}>

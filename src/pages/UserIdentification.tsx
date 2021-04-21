@@ -13,7 +13,7 @@ import fonts from '../styles/fonts';
 
 import { Button } from '../components/Button';
 
-export function UserIdentification() {
+export function UserIdentification () {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<string>();
