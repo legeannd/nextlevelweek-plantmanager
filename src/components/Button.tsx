@@ -8,9 +8,7 @@ export function Button() {
       style={styles.button} 
       activeOpacity={0.7}
     >
-      <Text style={styles.buttonText}>
-        >
-      </Text>
+      
     </TouchableOpacity>
   )
 }
