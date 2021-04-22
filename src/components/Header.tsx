@@ -29,7 +29,7 @@ export function Header() {
     <View style={styles.container}>
       <View>
         <Text style={styles.greetings}>Olá,</Text>
-        <Text style={styles.userName}>Gean</Text>
+        <Text style={styles.userName}>{username}</Text>
       </View>
 
       <Image source={userImg} style={styles.image} />
