@@ -27,8 +27,6 @@ export function UserIdentification () {
     async function loadNameIfExists() {
       const username = await AsyncStorage.getItem('@plantmanager:user');
 
-      console.log(username);
-
       if (!username) {
         setName('');
       } else {

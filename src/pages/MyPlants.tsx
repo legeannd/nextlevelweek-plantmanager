@@ -23,6 +23,7 @@ export function MyPlants () {
   const [myPlants, setMyPlants] = useState<PlantProps[]>([]);
   const [loading, setLoading] = useState(true);
   const [nextWatered, setNextWatered] = useState<string>();
+  const [reloadNextWatered, setReloadNextWatered] = useState(false);
 
   function handleRemove(plant: PlantProps) {
     Alert.alert('Remover', `Deseja remover a ${plant.name}?`, [
@@ -38,7 +39,10 @@ export function MyPlants () {
 
             setMyPlants(oldData => (
               oldData.filter(item => item.id !== plant.id)
-            ))
+            ));
+
+            setReloadNextWatered(true);
+
           } catch (error) {
             Alert.alert('Não foi possível remover! 😥');
           }
@@ -51,9 +55,15 @@ export function MyPlants () {
     async function loadStorageData() {
       const storagedPlants = await loadPlant();
 
+      if (storagedPlants[0] === undefined) {
+        setNextWatered('Nenhuma planta agendada para ser regada. Adicione uma planta nova no menu.');
+        setLoading(false);
+        return;
+      }
+
       const nextTime = formatDistance(
-        new Date(storagedPlants[0].dateTimeNotification).getTime(),
         new Date().getTime(),
+        new Date(storagedPlants[0].dateTimeNotification).getTime(),
         { locale: ptBR }
       );
 
@@ -61,12 +71,19 @@ export function MyPlants () {
         `Não esqueça de regar a ${storagedPlants[0].name} em ${nextTime}`
       );
 
+      setReloadNextWatered(false);
       setMyPlants(storagedPlants);
       setLoading(false);
     } 
 
     loadStorageData();
-  }, []);
+  }, [reloadNextWatered]);
+
+  useEffect(() => {
+    if (myPlants.length === 0) {
+      setNextWatered('Nenhuma planta agendada para ser regada. Adicione uma planta nova no menu.');
+    }
+  }, [myPlants]);
 
   if(loading)
     return <Load />
