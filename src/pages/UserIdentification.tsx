@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -22,6 +22,22 @@ export function UserIdentification () {
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
   const [name, setName] = useState<string>();
+
+  useEffect(() => {
+    async function loadNameIfExists() {
+      const username = await AsyncStorage.getItem('@plantmanager:user');
+
+      console.log(username);
+
+      if (!username) {
+        setName('');
+      } else {
+        setName(username);
+      }
+    }
+
+    loadNameIfExists();
+  }, []);
 
   const navigation = useNavigation();
   
@@ -86,6 +102,7 @@ export function UserIdentification () {
                 onBlur={handleInputBlur}
                 onFocus={handleInputFocus}
                 onChangeText={handleInputChange}
+                value={name !== '' ? name : ''}
               />
               <View style={styles.footer}>
                 <Button 
