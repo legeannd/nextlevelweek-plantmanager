@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img width="600" src="uploads/mobile.gif"/>
+  <img width="400" src="uploads/mobile.gif"/>
 </p>
 
 
